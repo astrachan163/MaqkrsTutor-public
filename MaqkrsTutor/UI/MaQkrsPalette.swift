@@ -4,6 +4,8 @@ import SwiftUI
 /// Sky blue `#4888E8` and `#2F64C8`, leaf green `#3F9E40`, white `#FFFFFF`,
 /// steel gray `#7880A0`, navy `#182048`. Cyan `#30D8F8` and gold `#F8D030`
 /// are small accents.
+/// Dark appearance accent text is A1 `accent.dark` `#88B0F8` in AccentColor.colorset.
+/// That pair is 6.38:1 on `#2c2c2e`.
 enum MaQkrsPalette {
     /// `#4888E8`
     static let skyBlue = Color(red: 72.0 / 255.0, green: 136.0 / 255.0, blue: 232.0 / 255.0)
