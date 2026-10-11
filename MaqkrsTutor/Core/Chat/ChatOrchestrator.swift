@@ -534,7 +534,7 @@ enum ChatTranscriptExporter {
         let body = sortedTurns.map { turn -> String in
             let title = turn.role == .user
                 ? "**You**"
-                : "**MaqkrsTutor (\(turn.modelIdentifier ?? session.modelIdentifier))**"
+                : "**MaQkrs (\(turn.modelIdentifier ?? session.modelIdentifier))**"
 
             var sections: [String] = [title]
 

@@ -285,36 +285,20 @@ private struct WorkspaceSidebarView: View {
         }
         .overlay(alignment: .trailing) {
             Rectangle()
-                .fill(Color.white.opacity(0.06))
+                .fill(MaQkrsPalette.steelGray)
                 .frame(width: 1)
                 .ignoresSafeArea()
         }
     }
 
     private var sidebarBackground: some View {
-        LinearGradient(
-            colors: [
-                Color(red: 0.11, green: 0.14, blue: 0.21),
-                Color(red: 0.07, green: 0.09, blue: 0.15),
-                Color(red: 0.04, green: 0.05, blue: 0.09)
-            ],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
-        .overlay(alignment: .topLeading) {
-            Circle()
-                .fill(Color.white.opacity(0.07))
-                .frame(width: 210, height: 210)
-                .blur(radius: 34)
-                .offset(x: -60, y: -48)
-        }
-        .overlay(alignment: .bottomTrailing) {
-            Circle()
-                .fill(Color.cyan.opacity(0.08))
-                .frame(width: 180, height: 180)
-                .blur(radius: 30)
-                .offset(x: 56, y: 70)
-        }
+        MaQkrsPalette.navy
+            .overlay(alignment: .top) {
+                Rectangle()
+                    .fill(MaQkrsPalette.leafGreen)
+                    .frame(height: 3)
+                    .ignoresSafeArea()
+            }
     }
 }
 
@@ -329,27 +313,18 @@ private struct SidebarHeaderBar: View {
             VStack(alignment: .leading, spacing: 14) {
                 HStack(alignment: .top, spacing: 12) {
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [
-                                    Color.cyan.opacity(0.26),
-                                    Color.indigo.opacity(0.38)
-                                ],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
+                        .fill(MaQkrsPalette.skyBlueDeep)
                         .frame(width: 44, height: 44)
                         .overlay {
                             Image(systemName: "sparkles.rectangle.stack.fill")
                                 .font(.title3.weight(.semibold))
-                                .foregroundStyle(.white.opacity(0.92))
+                                .foregroundStyle(MaQkrsPalette.white)
                         }
 
                     VStack(alignment: .leading, spacing: 5) {
-                        Text("MaqkrsTutor")
+                        Text("MaQkrs")
                             .font(.title3.weight(.semibold))
-                            .foregroundStyle(.white)
+                            .foregroundStyle(MaQkrsPalette.white)
                         Text("Local course workspace")
                             .font(.caption)
                             .foregroundStyle(.white.opacity(0.72))
@@ -359,7 +334,7 @@ private struct SidebarHeaderBar: View {
 
                     SidebarStatusPill(
                         title: modelManager.isOllamaAvailable ? "Ollama Ready" : "Offline",
-                        tint: modelManager.isOllamaAvailable ? .green : .orange
+                        tint: modelManager.isOllamaAvailable ? MaQkrsPalette.leafGreen : MaQkrsPalette.gold
                     )
                 }
 
@@ -438,13 +413,13 @@ private struct WorkspacePickerRow: View {
                 SidebarMetricBadge(
                     title: "\(sessionCount)",
                     systemImage: "bubble.left.and.bubble.right.fill",
-                    tint: .cyan
+                    tint: MaQkrsPalette.white
                 )
 
                 SidebarMetricBadge(
                     title: "\(documentCount)",
                     systemImage: "doc.text.fill",
-                    tint: .indigo
+                    tint: MaQkrsPalette.white
                 )
 
                 if let selectedWorkspace {
@@ -472,7 +447,7 @@ private struct StudyContextCard: View {
                 ContextChip(
                     title: session.studyMode.displayName,
                     systemImage: session.studyMode.systemImage,
-                    tint: .orange
+                    tint: MaQkrsPalette.white
                 )
             }
 
@@ -480,13 +455,13 @@ private struct StudyContextCard: View {
                 ContextChip(
                     title: targetLanguage,
                     systemImage: "globe",
-                    tint: .purple
+                    tint: MaQkrsPalette.white
                 )
 
                 ContextChip(
                     title: session.focusedDocument?.readiness.displayName ?? "No document selected",
                     systemImage: session.focusedDocument?.readiness.systemImage ?? "doc.badge.questionmark",
-                    tint: session.focusedDocument == nil ? .secondary : .green
+                    tint: session.focusedDocument == nil ? .secondary : MaQkrsPalette.white
                 )
             }
 
@@ -529,7 +504,7 @@ private struct SessionCardView: View {
             Button(action: onSelect) {
                 HStack(alignment: .top, spacing: 12) {
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .fill(isSelected ? Color.cyan.opacity(0.92) : Color.white.opacity(0.12))
+                        .fill(isSelected ? MaQkrsPalette.cyan : Color.white.opacity(0.12))
                         .frame(width: 4)
 
                     VStack(alignment: .leading, spacing: 10) {
@@ -544,7 +519,7 @@ private struct SessionCardView: View {
                             ContextChip(
                                 title: session.studyMode.displayName,
                                 systemImage: session.studyMode.systemImage,
-                                tint: .orange
+                                tint: MaQkrsPalette.white
                             )
 
                             Spacer(minLength: 0)
@@ -596,16 +571,7 @@ private struct DocumentCardView: View {
         Button(action: onFocus) {
             HStack(alignment: .top, spacing: 12) {
                 RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .fill(
-                        LinearGradient(
-                            colors: [
-                                Color.indigo.opacity(isFocused ? 0.42 : 0.28),
-                                Color.cyan.opacity(isFocused ? 0.34 : 0.18)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
+                    .fill(isFocused ? MaQkrsPalette.skyBlueDeep : MaQkrsPalette.navy)
                     .frame(width: 42, height: 42)
                     .overlay {
                         Image(systemName: document.fileType.systemImage)
@@ -623,7 +589,7 @@ private struct DocumentCardView: View {
                         SidebarMetricBadge(
                             title: document.readiness.displayName,
                             systemImage: document.readiness.systemImage,
-                            tint: document.readiness == .deferred ? .secondary : .cyan
+                            tint: document.readiness == .deferred ? .secondary : MaQkrsPalette.white
                         )
 
                         SidebarMetricBadge(
@@ -645,7 +611,7 @@ private struct DocumentCardView: View {
                     ContextChip(
                         title: "Focused",
                         systemImage: "scope",
-                        tint: .green
+                        tint: MaQkrsPalette.white
                     )
                 }
             }
@@ -827,7 +793,7 @@ private struct SidebarActionButton: View {
             .fill(
                 prominence == .primary
                 ? LinearGradient(
-                    colors: [Color.cyan.opacity(0.34), Color.indigo.opacity(0.42)],
+                    colors: [MaQkrsPalette.skyBlueDeep, MaQkrsPalette.skyBlueDeep],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
@@ -839,7 +805,10 @@ private struct SidebarActionButton: View {
             )
             .overlay {
                 RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .strokeBorder(Color.white.opacity(prominence == .primary ? 0.16 : 0.06))
+                    .strokeBorder(
+                        prominence == .primary ? MaQkrsPalette.white : MaQkrsPalette.skyBlue,
+                        lineWidth: 1
+                    )
             }
     }
 }

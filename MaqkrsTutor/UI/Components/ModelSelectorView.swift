@@ -68,7 +68,7 @@ struct ModelSelectorView: View {
             .accessibilityIdentifier("model-picker")
 
             Circle()
-                .fill(modelManager.isOllamaAvailable ? .green : .red)
+                .fill(modelManager.isOllamaAvailable ? MaQkrsPalette.leafGreen : MaQkrsPalette.gold)
                 .frame(width: 8, height: 8)
                 .help(modelManager.isOllamaAvailable
                       ? "Ollama connected at localhost:11434"
@@ -77,7 +77,7 @@ struct ModelSelectorView: View {
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
         .alert(
-            "⚠️ High Memory Usage",
+            "High Memory Usage",
             isPresented: $showMemoryWarning
         ) {
             Button("Continue Anyway") { }
@@ -90,8 +90,7 @@ struct ModelSelectorView: View {
             Text("""
             The \(selectedDescriptor.displayName) model requires approximately \
             \(Int(selectedDescriptor.estimatedMemoryGB ?? 22)) GB of unified memory. \
-            On your M4 Max (48 GB), this may cause thermal throttling \
-            or memory pressure during extended sessions.
+            That may cause thermal throttling or memory pressure during a long session.
 
             The recommended default is \(descriptor(for: recommendedModelIdentifier).displayName).
             """)

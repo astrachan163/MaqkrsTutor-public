@@ -798,7 +798,7 @@ private struct MessageBubbleView: View {
                 Image(systemName: "brain.head.profile")
                     .font(.caption)
             }
-            Text(message.role == .user ? "You" : "MaqkrsTutor")
+            Text(message.role == .user ? "You" : "MaQkrs")
                 .font(.caption)
                 .fontWeight(.semibold)
 
@@ -907,7 +907,7 @@ private struct StreamingBubbleView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "brain.head.profile")
                         .font(.caption)
-                    Text("MaqkrsTutor")
+                    Text("MaQkrs")
                         .font(.caption)
                         .fontWeight(.semibold)
                     Text(modelId)

@@ -1,89 +1,69 @@
-# MaqkrsTutor
+# MaQkrs
 
-MaqkrsTutor is a local-first macOS study assistant built with SwiftUI. It helps students upload course materials, focus a document, choose a study action, and get grounded responses from locally running Gemma models through Ollama.
+This repository is an earlier public snapshot of a macOS study app. It is for a student who wants to keep course files on their own Mac and ask questions through a local model. The current product is [MaQkrs AI Tutor](https://www.nonartificialsi.com/maqkrstutor). Cited answers, on your device.
 
-This public copy is sanitized for portfolio sharing. It excludes private notes, local-only artifacts, and git history from the private working repository.
+**Status:** Earlier public snapshot. The app in this tree sends chat and embeddings to a local Ollama process. It is not the current MaQkrs AI Tutor build.
 
-## What It Does
+Not deployed · Part of [Andrew Strachan's portfolio](https://www.nonartificialsi.com)
 
-- Creates workspace-based study sessions for course materials.
-- Supports grounded workflows for PDF, Markdown/text, and source code documents.
-- Uses a deterministic chat orchestrator so actions like summarize, translate, explain, and practice follow the selected document and language instead of drifting across unrelated session history.
-- Stores local study context with SwiftData and retrieval embeddings with sqlite-vec.
-- Streams responses and thinking output from Ollama-hosted Gemma models on-device.
+## What it does today
 
-## Project Highlights
+- Opens course workspaces, study sessions, and a document list in a SwiftUI sidebar.
+- Accepts PDF, text, Markdown, and source files as study material. Images can be attached to a prompt. Audio and video uploads are rejected.
+- Resolves each turn before generation: a document named in the prompt, one newly added document, the focused document, or the previous reply when the prompt is a bare translate.
+- Stops and asks for one document when several new files are staged and the prompt says "this" document. Summarize, translate, and practice also stop when no document is selected. Tutor and explain can continue without one.
+- Sends the focused document's extracted text with the prompt. PDF text comes from PDFKit, and a page with no text layer is read with Vision.
+- Can store embeddings in a local sqlite-vec database and attach retrieved chunks to a reply. The chat screen's file importer uses direct text and does not turn indexing on.
+- Streams a reply from Ollama on this Mac, and keeps a separate reasoning buffer when the model returns one.
+- Lists chat models installed in local Ollama. The source includes a curated order for the tags in `ModelCatalog`.
+- Speaks a model reply on the Mac with AVSpeechSynthesizer. The language menu is English, Turkish, Hindi, Swahili, Mandarin, and Bengali.
+- Saves a summary, translation, or practice set as a local SwiftData record, and exports a session to Markdown.
 
-- Deterministic turn resolution with explicit source selection, language selection, and study-mode routing.
-- Focused-document RAG with provenance metadata and scoped history windows.
-- Local document ingestion pipeline for PDF, text, and code content.
-- Curated model selection for Gemma variants hosted by Ollama.
-- Workspace-first SwiftUI sidebar and study context UI.
+## Planned
 
-## Tech Stack
+- Chat through MLX. The Xcode project links mlx-swift, and the Swift sources do not call it. [planned]
+- Tree-sitter and semantic chunking through PythonKit. The scripts are stubs, and the app splits text with a sliding window. [planned]
+- Transcripts for audio and video. [planned]
+- Quiz-card decks. The model types exist, and no screen builds a deck. [planned]
 
-- SwiftUI
-- SwiftData
-- Ollama
-- Gemma 4
-- MLX
-- SQLiteVec
-- MarkdownUI
-- PDFKit
-- AVFoundation
+## How it's built
 
-## Repository Layout
+- SwiftUI interface and SwiftData store. The shared Xcode project sets the macOS deployment target to 26.3.
+- Chat and embedding requests go to Ollama at `http://localhost:11434`. This snapshot does not call a cloud model API.
+- SQLiteVec holds vectors. MarkdownUI renders Markdown replies.
+- Sidebar colors use the MaQkrs palette in `MaqkrsTutor/UI/MaQkrsPalette.swift`: navy `#182048`, sky blue `#2F64C8` and `#4888E8`, leaf green `#3F9E40`, white `#FFFFFF`, and steel gray `#7880A0`. Cyan `#30D8F8` and gold `#F8D030` are limited to the selection bar and status dot. The accent color is `#2F64C8` in light appearance and `#4888E8` in dark appearance.
 
-- `MaqkrsTutor/App`: app entry point and app-level setup
-- `MaqkrsTutor/Core/Chat`: deterministic turn orchestration
-- `MaqkrsTutor/Core/Data`: SwiftData models
-- `MaqkrsTutor/Core/MLX`: model management and streaming
-- `MaqkrsTutor/Core/RAG`: ingestion pipeline and vector retrieval
-- `MaqkrsTutor/UI`: SwiftUI views and components
-- `MaqkrsTutor/Scripts`: helper scripts for chunking and preprocessing
+## Run it locally
 
-## Running Locally
+On a Mac, from the project root:
 
-### Requirements
-
-- macOS
-- Xcode 26+
-- Ollama installed and running locally
-- A supported Gemma model pulled in Ollama
-- `nomic-embed-text:v1.5` if you want embedding-backed retrieval
-
-### Typical Ollama setup
-
-```bash
-ollama pull gemma4:e2b-it-q4_K_M
-ollama pull gemma4:e4b-it-q4_K_M
-ollama pull nomic-embed-text:v1.5
-ollama serve
+```sh
+open MaqkrsTutor.xcodeproj
 ```
 
-### Open and build
+In Xcode, select the MaqkrsTutor scheme and run it. The placeholder bundle identifier is `com.example.MaqkrsTutor`. Set your own team if the run requires a signature.
 
-1. Open `MaqkrsTutor.xcodeproj` in Xcode.
-2. If needed, set your own signing team and bundle identifier.
-3. Build and run the `MaqkrsTutor` target.
+Install Ollama and start it on the same Mac. Pull a chat model and the embedding model named by `ModelManagerConfig.embeddingModel` (`nomic-embed-text:v1.5`) before you expect retrieval. This snapshot does not read an env file. `.env.example` is blank on purpose.
 
-## Current Scope
+## Tests and checks
 
-This public version is focused on the macOS local-study workflow:
+From the project root:
 
-- PDF, Markdown/text, and code documents are the primary grounded study materials.
-- Images are treated as prompt-scoped attachments.
-- Audio, video, PPT, and repo-folder ingestion are still exploratory and not positioned as polished public features here.
+```sh
+node scripts/check-claims.mjs
+node scripts/check-emoji.mjs
+gitleaks dir . --redact
+```
 
-## Why This Project Matters
+Unit tests are the Swift Testing suite in `MaqkrsTutorTests` (17 tests). UI tests are in `MaqkrsTutorUITests`. Run both from Xcode on a Mac with the MaqkrsTutor scheme.
 
-I built MaqkrsTutor as a local AI learning platform for course-specific study support. The goal is to combine document-grounded tutoring, summarization, translation, and practice generation in a way that is predictable, privacy-preserving, and usable on a Mac without depending on cloud-hosted model APIs.
+## Security
 
-## Public Copy Notes
+No secrets are committed. This snapshot has no API keys. Chat and embeddings stay on the machine and talk only to local Ollama. Billable AI keys never reach a browser, because this tree has no web client. Report a problem to strachan@uab.edu.
 
-- This repository was published as a fresh public-safe copy.
-- Private planning notes, local logs, and internal docs were removed.
-- Local bundle identifiers and Xcode signing values were neutralized for public sharing.
+## Credits
+
+Author: Andrew Strachan.
 
 ## License
 
