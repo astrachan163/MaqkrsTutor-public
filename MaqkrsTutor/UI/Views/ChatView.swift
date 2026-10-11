@@ -507,8 +507,8 @@ private struct ChatHeaderView: View {
                     .font(.caption)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 6)
-                    .background(Capsule().fill(Color.accentColor.opacity(0.14)))
-                    .foregroundStyle(Color.accentColor)
+                    .background(Capsule().fill(MaQkrsPalette.surfaceTint))
+                    .foregroundStyle(MaQkrsPalette.accentText)
             }
 
             HStack(spacing: 10) {
@@ -807,8 +807,8 @@ private struct MessageBubbleView: View {
                     .font(.caption2)
                     .padding(.horizontal, 6)
                     .padding(.vertical, 2)
-                    .background(Capsule().fill(Color.accentColor.opacity(0.15)))
-                    .foregroundStyle(Color.accentColor)
+                    .background(Capsule().fill(MaQkrsPalette.surfaceTint))
+                    .foregroundStyle(MaQkrsPalette.accentText)
 
                 if let snapshot = message.turnContextSnapshot {
                     Text(snapshot.resolvedMode.displayName)
@@ -914,8 +914,8 @@ private struct StreamingBubbleView: View {
                         .font(.caption2)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 2)
-                        .background(Capsule().fill(Color.accentColor.opacity(0.15)))
-                        .foregroundStyle(Color.accentColor)
+                        .background(Capsule().fill(MaQkrsPalette.surfaceTint))
+                        .foregroundStyle(MaQkrsPalette.accentText)
                     ProgressView()
                         .scaleEffect(0.6)
                 }

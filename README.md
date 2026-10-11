@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="docs/brand/title_maqkrs_5x.png" alt="MaQkrs wordmark" width="500" height="160" style="image-rendering:pixelated; image-rendering:crisp-edges">
+  <img src="docs/brand/title_maqkrs_5x.png" alt="MaQkrs wordmark built from meshing pixel gears" width="500" height="160" style="image-rendering:pixelated; image-rendering:crisp-edges">
   <br>
-  <img src="docs/brand/cast_lineup_4x.png" alt="MaQkrs crew lineup" width="480" height="320" style="image-rendering:pixelated; image-rendering:crisp-edges">
+  <img src="docs/brand/cast_lineup_4x.png" alt="The MaQkrs mecha crew: chibi robots with cyan visors and colorful shoulder fins" width="480" height="320" style="image-rendering:pixelated; image-rendering:crisp-edges">
 </p>
 
 # MaQkrs
 
-This repository is an earlier public snapshot of a macOS study app. It is for a student who wants to keep course files on their own Mac and ask questions through a local model. The current product is [MaQkrs AI Tutor](https://www.nonartificialsi.com/maqkrstutor). Cited answers, on your device.
+This repository is an earlier public snapshot of a macOS study app. It is for a student who wants to keep course files on their own Mac and ask questions through a local model. The current product is [MaQkrs AI Tutor (pre-release beta): cited answers, on your device.](https://www.nonartificialsi.com/maqkrstutor)
 
 **Status:** Earlier public snapshot. The app in this tree sends chat and embeddings to a local Ollama process. It is not the current MaQkrs AI Tutor build.
 
@@ -37,7 +37,7 @@ Not deployed · Part of [Andrew Strachan's portfolio](https://www.nonartificials
 - SwiftUI interface and SwiftData store. The shared Xcode project sets the macOS deployment target to 26.3.
 - Chat and embedding requests go to Ollama at `http://localhost:11434`. This snapshot does not call a cloud model API.
 - SQLiteVec holds vectors. MarkdownUI renders Markdown replies.
-- Sidebar colors use the MaQkrs palette in `MaqkrsTutor/UI/MaQkrsPalette.swift`: navy `#182048`, sky blue `#2F64C8` and `#4888E8`, leaf green `#3F9E40`, white `#FFFFFF`, and steel gray `#7880A0`. Cyan `#30D8F8` and gold `#F8D030` are limited to the selection bar and status dot. Light accent text is `#2F64C8`. Dark accent text is the A1 token `#88B0F8` (6.38:1 on `#2c2c2e`).
+- Sidebar colors use the MaQkrs palette in `MaqkrsTutor/UI/MaQkrsPalette.swift`: navy `#182048`, sky blue `#2F64C8` and `#4888E8`, leaf green `#3F9E40`, white `#FFFFFF`, and steel gray `#7880A0`. Cyan `#30D8F8` and gold `#F8D030` are limited to the selection bar and status dot. The accent color is `#2F64C8` in light appearance and `#88B0F8` in dark appearance (`#88B0F8` is 6.38:1 on `#2c2c2e`). The model-name labels use A1 accent text `#2458B8` on `#E8F1FD` in light (5.83:1) and `#9CC0FA` on `#182457` in dark (7.93:1).
 
 ## Run it locally
 
@@ -65,7 +65,7 @@ Unit tests are the Swift Testing suite in `MaqkrsTutorTests` (17 tests). UI test
 
 ## Security
 
-No secrets are committed. This snapshot has no API keys. Chat and embeddings stay on the machine and talk only to local Ollama. Billable AI keys never reach a browser, because this tree has no web client. Report a problem to strachan@uab.edu.
+No secrets are committed. This snapshot has no API keys. Chat and embeddings stay on the machine and talk only to local Ollama. Report a security issue only through the [private vulnerability advisory](https://github.com/astrachan163/MaqkrsTutor-public/security/advisories/new) on this repository. For questions that are not security reports, write to strachan@uab.edu.
 
 ## Credits
 
