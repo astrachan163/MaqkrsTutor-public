@@ -507,8 +507,8 @@ private struct ChatHeaderView: View {
                     .font(.caption)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 6)
-                    .background(Capsule().fill(Color.accentColor.opacity(0.14)))
-                    .foregroundStyle(Color.accentColor)
+                    .background(Capsule().fill(MaQkrsPalette.surfaceTint))
+                    .foregroundStyle(MaQkrsPalette.accentText)
             }
 
             HStack(spacing: 10) {
@@ -798,7 +798,7 @@ private struct MessageBubbleView: View {
                 Image(systemName: "brain.head.profile")
                     .font(.caption)
             }
-            Text(message.role == .user ? "You" : "MaqkrsTutor")
+            Text(message.role == .user ? "You" : "MaQkrs")
                 .font(.caption)
                 .fontWeight(.semibold)
 
@@ -807,8 +807,8 @@ private struct MessageBubbleView: View {
                     .font(.caption2)
                     .padding(.horizontal, 6)
                     .padding(.vertical, 2)
-                    .background(Capsule().fill(Color.accentColor.opacity(0.15)))
-                    .foregroundStyle(Color.accentColor)
+                    .background(Capsule().fill(MaQkrsPalette.surfaceTint))
+                    .foregroundStyle(MaQkrsPalette.accentText)
 
                 if let snapshot = message.turnContextSnapshot {
                     Text(snapshot.resolvedMode.displayName)
@@ -907,15 +907,15 @@ private struct StreamingBubbleView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "brain.head.profile")
                         .font(.caption)
-                    Text("MaqkrsTutor")
+                    Text("MaQkrs")
                         .font(.caption)
                         .fontWeight(.semibold)
                     Text(modelId)
                         .font(.caption2)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 2)
-                        .background(Capsule().fill(Color.accentColor.opacity(0.15)))
-                        .foregroundStyle(Color.accentColor)
+                        .background(Capsule().fill(MaQkrsPalette.surfaceTint))
+                        .foregroundStyle(MaQkrsPalette.accentText)
                     ProgressView()
                         .scaleEffect(0.6)
                 }

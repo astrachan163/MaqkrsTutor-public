@@ -238,7 +238,7 @@ final class DocumentIngestionManager {
                 }
                 ingestionProgress = Double(index + 1) / total
             } catch {
-                statusMessage = "❌ \(error.localizedDescription)"
+                statusMessage = "Failed: \(error.localizedDescription)"
             }
         }
 
@@ -271,7 +271,7 @@ final class DocumentIngestionManager {
                 }
                 ingestionProgress = Double(index + 1) / total
             } catch {
-                statusMessage = "❌ \(error.localizedDescription)"
+                statusMessage = "Failed: \(error.localizedDescription)"
             }
         }
 
@@ -359,7 +359,7 @@ final class DocumentIngestionManager {
         }
 
         guard !chunks.isEmpty else {
-            statusMessage = "⚠️ No content extracted from \(fileName)"
+            statusMessage = "No content extracted from \(fileName)"
             return nil
         }
 
@@ -427,11 +427,11 @@ final class DocumentIngestionManager {
         syncIngestedFiles(for: workspace)
 
         if directContextTruncated {
-            statusMessage = "✅ \(fileName) — direct context prepared (truncated for on-device limits)"
+            statusMessage = "\(fileName) — direct context prepared (truncated for on-device limits)"
         } else if shouldEmbed {
-            statusMessage = "✅ \(fileName) — \(embeddedCount) chunks indexed"
+            statusMessage = "\(fileName) — \(embeddedCount) chunks indexed"
         } else {
-            statusMessage = "✅ \(fileName) — direct context prepared"
+            statusMessage = "\(fileName) — direct context prepared"
         }
 
         return document

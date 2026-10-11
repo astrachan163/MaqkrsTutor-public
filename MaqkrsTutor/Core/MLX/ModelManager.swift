@@ -898,7 +898,7 @@ Use the following local course context when it is directly relevant:
                     : "Use the selected app language for this turn."
 
                 let systemPrompt = """
-You are MaqkrsTutor, an elite pedagogical AI running entirely on-device on an Apple M4 Max. \
+You are MaQkrs, a local study assistant. \
 Your role is to support course-specific learning with grounded, source-aware responses. \
 Current study mode: \(effectiveMode.displayName). \
 Respond entirely in \(resolvedTurn.language). \
